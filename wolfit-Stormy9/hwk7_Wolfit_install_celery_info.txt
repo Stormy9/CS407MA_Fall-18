@@ -1,0 +1,162 @@
+[ ADDED LINE SPACING FOR READABILITY ]
+
+(wolfit-O8Sqmbes)
+ec2-user@ip-172-31-27-206: ~/wolfit:
+$ pipenv install celery
+
+Installing celery...
+Collecting celery
+  Using cached https://files.pythonhosted.org/packages/e8/58/2a0b1067ab2c12131b5c089dfc579467c76402475c5231095e36a43b749c/celery-4.2.1-py2.py3-none-any.whl
+
+Collecting kombu<5.0,>=4.2.0 (from celery)
+  Using cached https://files.pythonhosted.org/packages/97/61/65838c7da048e56d549e358ac19c0979c892e17dc6186610c49531d35b70/kombu-4.2.1-py2.py3-none-any.whl
+
+Collecting pytz>dev (from celery)
+  Using cached https://files.pythonhosted.org/packages/f8/0e/2365ddc010afb3d79147f1dd544e5ee24bf4ece58ab99b16fbb465ce6dc0/pytz-2018.7-py2.py3-none-any.whl
+
+Collecting billiard<3.6.0,>=3.5.0.2 (from celery)
+
+Collecting amqp<3.0,>=2.1.4 (from kombu<5.0,>=4.2.0->celery)
+  Using cached https://files.pythonhosted.org/packages/7f/cf/12d4611fc67babd4ae250c9e8249c5650ae1933395488e9e7e3562b4ff24/amqp-2.3.2-py2.py3-none-any.whl
+
+Collecting vine>=1.1.3 (from amqp<3.0,>=2.1.4->kombu<5.0,>=4.2.0->celery)
+  Using cached https://files.pythonhosted.org/packages/10/50/5b1ebe42843c19f35edb15022ecae339fbec6db5b241a7a13c924dabf2a3/vine-1.1.4-py2.py3-none-any.whl
+
+Installing collected packages: vine, amqp, kombu, pytz, billiard, celery
+
+Successfully installed amqp-2.3.2 billiard-3.5.0.4 celery-4.2.1 kombu-4.2.1 pytz-2018.7 vine-1.1.4
+
+Adding celery to Pipfile's [packages]...
+Pipfile.lock (b9d8dc) out of date, updating to (37b4a2)...
+Locking [dev-packages] dependencies...
+Locking [packages] dependencies...
+Updated Pipfile.lock (37b4a2)!
+
+Installing dependencies from Pipfile.lock (37b4a2)...
+An error occurred while installing dominate==2.3.4; python_version != '3.0.*'! Will try again.
+  🐍   ▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉ 54/54 — 00:00:39
+
+Installing initially failed dependencies...
+Success installing dominate==2.3.4; python_version != '3.0.*'!
+  ☤  ▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉ 1/1 — 00:00:00
+
+(wolfit-O8Sqmbes)
+ec2-user@ip-172-31-27-206: ~/wolfit:
+$ celery --version
+4.2.1 (windowlicker)
+
+-----------------------------------------------------------------------
+
+(wolfit-O8Sqmbes)
+ec2-user@ip-172-31-27-206: ~/wolfit:
+$ pipenv install "celery[redis]"
+
+Installing celery[redis]...
+
+Requirement already satisfied: celery[redis] in /home/ec2-user/.local/share/virtualenvs/wolfit-O8Sqmbes/lib/python3.6/site-packages (4.2.1)
+
+Requirement already satisfied: billiard<3.6.0,>=3.5.0.2 in /home/ec2-user/.local/share/virtualenvs/wolfit-O8Sqmbes/lib/python3.6/site-packages (from celery[redis]) (3.5.0.4)
+
+Requirement already satisfied: pytz>dev in /home/ec2-user/.local/share/virtualenvs/wolfit-O8Sqmbes/lib/python3.6/site-packages (from celery[redis]) (2018.7)
+
+Requirement already satisfied: kombu<5.0,>=4.2.0 in /home/ec2-user/.local/share/virtualenvs/wolfit-O8Sqmbes/lib/python3.6/site-packages (from celery[redis]) (4.2.1)
+
+Collecting redis>=2.10.5; extra == "redis" (from celery[redis])
+  Using cached https://files.pythonhosted.org/packages/f5/00/5253aff5e747faf10d8ceb35fb5569b848cde2fdc13685d42fcf63118bbc/redis-3.0.1-py2.py3-none-any.whl
+
+Requirement already satisfied: amqp<3.0,>=2.1.4 in /home/ec2-user/.local/share/virtualenvs/wolfit-O8Sqmbes/lib/python3.6/site-packages (from kombu<5.0,>=4.2.0->celery[redis]) (2.3.2)
+
+Requirement already satisfied: vine>=1.1.3 in /home/ec2-user/.local/share/virtualenvs/wolfit-O8Sqmbes/lib/python3.6/site-packages (from amqp<3.0,>=2.1.4->kombu<5.0,>=4.2.0->celery[redis]) (1.1.4)
+
+Installing collected packages: redis
+Successfully installed redis-3.0.1
+
+Adding celery[redis] to Pipfile's [packages]...
+Pipfile.lock (37b4a2) out of date, updating to (0a614d)...
+Locking [dev-packages] dependencies...
+Locking [packages] dependencies...
+Updated Pipfile.lock (0a614d)!
+
+Installing dependencies from Pipfile.lock (0a614d)...
+  🐍   ▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉ 55/55 — 00:00:31
+
+-----------------------------------------------------------------------
+
+(wolfit-O8Sqmbes)
+ec2-user@ip-172-31-27-206: ~/wolfit:
+$more Pipfile
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+flask = "*"
+pymysql = "*"
+flask-script = "*"
+pytest = "*"
+"flake8" = "*"
+flask-wtf = "*"
+flask-sqlalchemy = "*"
+flask-migrate = "*"
+flask-login = "*"
+selenium = "*"
+coverage = "*"
+flask-testing = "*"
+praw = "*"
+markdown = "*"
+flask-bootstrap = "*"
+celery = {version = "*", extras = ["redis"]}
+
+[dev-packages]
+
+[requires]
+python_version = "3.6"
+
+
+
+(wolfit-O8Sqmbes)
+ec2-user@ip-172-31-27-206: ~/wolfit:
+$
+
+
+-----------------------------------------------------------------------
+THEN REMEMBER THIS:
+# Fixing Celery/Redis AttributeError: 
+#   'Float' object has no attribute 'items'
+# @LeoThalman                                               10 days ago
+#
+# if you get an Attribute error in celery when adding a task to the
+# queue with delay,  then run following command to rollback redis to
+# an install that works:
+#
+#       pip install redis==2.10.6
+#
+#
+#
+SO DID THIS:
+(wolfit-O8Sqmbes)
+ec2-user@ip-172-31-27-206: ~/wolfit:
+$ pip install redis==2.10.6
+
+Collecting redis==2.10.6
+  Using cached https://files.pythonhosted.org/packages/3b/f6/7a76333cf0b9251ecf49efff635015171843d9b977e4ffcf59f9c4428052/redis-2.10.6-py2.py3-none-any.whl
+
+Installing collected packages: redis
+  Found existing installation: redis 3.0.1
+    Uninstalling redis-3.0.1:
+      Successfully uninstalled redis-3.0.1
+
+Successfully installed redis-2.10.6
+
+You are using pip version 18.0, however version 18.1 is available.
+You should consider upgrading via the 'pip install --upgrade pip' command.
+
+
+
+(wolfit-O8Sqmbes)
+ec2-user@ip-172-31-27-206: ~/wolfit:
+$
+
+Didn't want to run into that stupid 'float' error thing!
+And this made the celery exercise work perfectly... (: 

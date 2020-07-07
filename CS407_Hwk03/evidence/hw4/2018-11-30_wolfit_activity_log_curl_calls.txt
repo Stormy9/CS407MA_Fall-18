@@ -1,0 +1,115 @@
+11/30/18 -- UPDATED Wolfit Activity Log Curl Calls...
+
+(holmant_CS407_hwk03-eSL_iTeL)
+ec2-user@ip-172-31-27-206: ~/holmant_CS407_hwk03:
+$ curl -H "Content-Type: application/json" --request POST --data '{"user_id":"9", "username":"Luke", "details":"i like wireless mouses"}' http://0.0.0.0:8080/api/activities/
+{
+  "details": "i like wireless mouses",
+  "id": "5c01987d4688bb4f262fb015",                                                 POST
+  "location": "/api/activities/5c01987d4688bb4f262fb015",
+  "timestamp": "Fri, 30 Nov 2018 20:07:25 GMT",
+  "user_id": "9",
+  "username": "Luke"
+}
+_________________________________________________________________________________________
+
+(holmant_CS407_hwk03-eSL_iTeL)
+ec2-user@ip-172-31-27-206: ~/holmant_CS407_hwk03:
+$ curl -H "Content-Type: application/json" --request GET http://0.0.0.0:8080/api/activities/5bf4f66f4688bb213079deeb
+{
+  "details": "Up Vote: <Post id 105 - i <3 python>",
+  "id": "5bf4f66f4688bb213079deeb",                                             GET one
+  "location": "/api/activities/5bf4f66f4688bb213079deeb",
+  "timestamp": "Wed, 21 Nov 2018 06:08:47 GMT",
+  "user_id": 6,
+  "username": "sawyer"
+}
+_________________________________________________________________________________________
+
+(holmant_CS407_hwk03-eSL_iTeL)
+ec2-user@ip-172-31-27-206: ~/holmant_CS407_hwk03:
+$ curl -H "Content-Type: application/json" --request GET http://0.0.0.0:8080/api/activities/
+{
+  "wolfit activity log": [
+    {                                                                             GET all
+      "details": "i like wireless mouses",
+      "id": "5c01987d4688bb4f262fb015",
+      "location": "/api/activities/5c01987d4688bb4f262fb015",
+      "timestamp": "Fri, 30 Nov 2018 19:43:50 GMT",
+      "user_id": 9,
+      "username": "Luke"
+    },
+    {
+      "details": "K9 version of Tasmanian Devil cartoon",
+      "id": "5c00d7384688bb45b87735e6",
+      "location": "/api/activities/5c00d7384688bb45b87735e6",
+      "timestamp": "Fri, 30 Nov 2018 06:22:43 GMT",
+      "user_id": 9,
+      "username": "Luke"
+    },
+    {
+      "details": "Logout <User id 7 - tricia>",
+      "id": "5bfa55854688bb64a8eaab19",
+      "location": "/api/activities/5bfa55854688bb64a8eaab19",
+      "timestamp": "Sun, 25 Nov 2018 07:55:49 GMT",
+      "user_id": 7,
+      "username": "tricia"
+    },
+    {
+      "details": "WOOFWOOF!",
+      "id": "5bfa38ee4688bb62db8effba",
+      "location": "/api/activities/5bfa38ee4688bb62db8effba",
+      "timestamp": "Sun, 25 Nov 2018 05:53:50 GMT",
+      "user_id": 999,
+      "username": "Lacey"
+    },
+    {
+      "details": "WOOF!",
+      "id": "5bfa35054688bb626c792183",
+      "location": "/api/activities/5bfa35054688bb626c792183",
+      "timestamp": "Sun, 25 Nov 2018 05:37:09 GMT",
+      "user_id": 999,
+      "username": "Lacey"
+    },
+    {
+      "details": "Up Vote: <Post id 107 - make tic-tac-toe on python>",
+      "id": "5bfa1d794688bb60c3cd87f1",
+      "location": "/api/activities/5bfa1d794688bb60c3cd87f1",
+      "timestamp": "Sun, 25 Nov 2018 03:55:11 GMT",
+      "user_id": 4,
+      "username": "possum"
+    },
+    {
+      "details": "Login <User id 6 - sawyer>",
+      "id": "5bfa1e3d4688bb60c3cd87f2",
+      "location": "/api/activities/5bfa1e3d4688bb60c3cd87f2",
+      "timestamp": "Sun, 25 Nov 2018 03:55:11 GMT",
+      "user_id": 6,
+      "username": "sawyer"
+    },
+    {
+      "details": "Up Vote: <Post id 108 - Python Practice?>",
+      "id": "5bfa1e954688bb60c3cd87f3",
+      "location": "/api/activities/5bfa1e954688bb60c3cd87f3",
+      "timestamp": "Sun, 25 Nov 2018 03:55:11 GMT",
+      "user_id": 6,
+      "username": "sawyer"
+    },
+    {
+      "details": "Up Vote: <Post id 109 - writing APIs in python>",
+      "id": "5bfa23034688bb60c3cd87f4",
+      "location": "/api/activities/5bfa23034688bb60c3cd87f4",
+      "timestamp": "Sun, 25 Nov 2018 03:55:11 GMT",
+      "user_id": 3,
+      "username": "stormy"
+    },
+    {
+      "details": "Logout <User id 3 - stormy>",
+      "id": "5bfa24764688bb60c3cd87f5",
+      "location": "/api/activities/5bfa24764688bb60c3cd87f5",
+      "timestamp": "Sun, 25 Nov 2018 03:55:11 GMT",
+      "user_id": 3,
+      "username": "stormy"
+    }
+  ]
+}

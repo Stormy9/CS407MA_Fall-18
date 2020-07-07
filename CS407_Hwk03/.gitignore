@@ -1,0 +1,23 @@
+hwk3_app.py
+
+app.py
+# have them by version now: hwk4, hwk6, hwk7
+	# (hwk6 we didn't change this, just added nginx)
+
+xp_notes_pre_hwk4_app.py
+xp_notes_hwk4_app.py
+
+xp_h4_mongo_cats.py
+xp_my_dogs_mongoengine.py
+
+xp_notes_h4_activity_logger.py
+
+h4_exp_doggie_mongo.py
+h4_exp_doggie_mlab.py
+
+env.py
+
+/activity-log-test-rest-client/
+activity-log-test-rest-client/activity_logger.py
+activity-log-test-rest-client/Pipfile
+activity-log-test-rest-client/Pipfile.lock

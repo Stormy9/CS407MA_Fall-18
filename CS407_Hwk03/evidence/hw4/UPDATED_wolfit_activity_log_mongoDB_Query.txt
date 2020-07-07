@@ -1,0 +1,117 @@
+> use wolfit_activity_log
+switched to db wolfit_activity_log
+> db.activity_log.find().pretty()
+
+=== SNIPPED TO JUST CURRENT WOLFIT ACTIVITIES ===
+    (aka no test POSTs from today, nothing from before!)
+    (only stuff after tonight's updates to app.py)
+
+
+{
+        "_id" : ObjectId("5bfa1d644688bb60b1720a21"),
+        "user_id" : 4,
+        "username" : "possum",
+        "timestamp" : ISODate("2018-11-25T03:55:05.294Z"),
+        "details" : "Login <User id 4 - possum>"
+}
+{
+        "_id" : ObjectId("5bfa1d794688bb60c3cd87f1"),
+        "user_id" : 4,
+        "username" : "possum",
+        "timestamp" : ISODate("2018-11-25T03:55:11.934Z"),
+        "details" : "Up Vote: <Post id 107 - make tic-tac-toe on python>"
+}
+{
+        "_id" : ObjectId("5bfa1d934688bb60b1720a22"),
+        "user_id" : 4,
+        "username" : "possum",
+        "timestamp" : ISODate("2018-11-25T03:55:05.294Z"),
+        "details" : "Up Vote: <Post id 10 - How can I add bluetooth to my project?>"
+}
+{
+        "_id" : ObjectId("5bfa1df24688bb60b1720a23"),
+        "user_id" : 4,
+        "username" : "possum",
+        "timestamp" : ISODate("2018-11-25T03:55:05.294Z"),
+        "details" : "Create: <Post id 108 - Python Practice?>"
+}
+{
+        "_id" : ObjectId("5bfa1e214688bb60b1720a24"),
+        "user_id" : 4,
+        "username" : "possum",
+        "timestamp" : ISODate("2018-11-25T03:55:05.294Z"),
+        "details" : "Logout <User id 4 - possum>"
+}
+{
+        "_id" : ObjectId("5bfa1e3d4688bb60c3cd87f2"),
+        "user_id" : 6,
+        "username" : "sawyer",
+        "timestamp" : ISODate("2018-11-25T03:55:11.934Z"),
+        "details" : "Login <User id 6 - sawyer>"
+}
+{
+        "_id" : ObjectId("5bfa1e954688bb60c3cd87f3"),
+        "user_id" : 6,
+        "username" : "sawyer",
+        "timestamp" : ISODate("2018-11-25T03:55:11.934Z"),
+        "details" : "Up Vote: <Post id 108 - Python Practice?>"
+}
+{
+        "_id" : ObjectId("5bfa20654688bb60b1720a25"),
+        "user_id" : 6,
+        "username" : "sawyer",
+        "timestamp" : ISODate("2018-11-25T03:55:05.294Z"),
+        "details" : "Up Vote: <Post id 107 - make tic-tac-toe on python>"
+}
+{
+        "_id" : ObjectId("5bfa21e24688bb60b1720a26"),
+        "user_id" : 6,
+        "username" : "sawyer",
+        "timestamp" : ISODate("2018-11-25T03:55:05.294Z"),
+        "details" : "Create: <Post id 109 - writing APIs in python>"
+}
+Type "it" for more
+> it
+{
+        "_id" : ObjectId("5bfa228a4688bb60b1720a27"),
+        "user_id" : 6,
+        "username" : "sawyer",
+        "timestamp" : ISODate("2018-11-25T03:55:05.294Z"),
+        "details" : "Logout <User id 6 - sawyer>"
+}
+{
+        "_id" : ObjectId("5bfa22f94688bb60b1720a28"),
+        "user_id" : 3,
+        "username" : "stormy",
+        "timestamp" : ISODate("2018-11-25T03:55:05.294Z"),
+        "details" : "Login <User id 3 - stormy>"
+}
+{
+        "_id" : ObjectId("5bfa23034688bb60c3cd87f4"),
+        "user_id" : 3,
+        "username" : "stormy",
+        "timestamp" : ISODate("2018-11-25T03:55:11.934Z"),
+        "details" : "Up Vote: <Post id 109 - writing APIs in python>"
+}
+{
+        "_id" : ObjectId("5bfa24764688bb60c3cd87f5"),
+        "user_id" : 3,
+        "username" : "stormy",
+        "timestamp" : ISODate("2018-11-25T03:55:11.934Z"),
+        "details" : "Logout <User id 3 - stormy>"
+}
+{
+        "_id" : ObjectId("5bfa24a74688bb60b1720a29"),
+        "user_id" : 7,
+        "username" : "tricia",
+        "timestamp" : ISODate("2018-11-25T03:55:05.294Z"),
+        "details" : "Register"
+}
+{
+        "_id" : ObjectId("5bfa24b14688bb60c3cd87f6"),
+        "user_id" : 7,
+        "username" : "tricia",
+        "timestamp" : ISODate("2018-11-25T03:55:11.934Z"),
+        "details" : "Login <User id 7 - tricia>"
+}
+>

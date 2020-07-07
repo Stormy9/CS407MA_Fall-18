@@ -1,0 +1,4 @@
+MLAB_DB = 'wolfit'
+MLAB_HOST = 'ds037478.mlab.com:37478'
+MLAB_USERNAME = 'stormy9'
+MLAB_PASSWORD = 'stormy9wolfit'
