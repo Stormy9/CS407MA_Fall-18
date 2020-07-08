@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>{{ title }}</title>
+  </head>
+  <body>
+  	<h2>{{ title }}</h2>
+  	{% for post in posts %}
+  	<div>
+  		<div style="text-align:right; display:inline-block; width: 50px;">
+  			({{ votes[post.id].vote_count}})
+  		</div>
+  		<div style="display:inline-block"><a href="{{ url_for("post", post_id=post.id) }}">{{ post.title }}</a> by {{ post.author }}</div>
+  	</div>
+  	{% endfor %}
+  </body>
+</html>
