@@ -1,0 +1,100 @@
+(where do we practice making the actual databae -- in this case, db.inventory, for instance?)
+(also -- is there a way to send the output directly to a text document, like we were doing with curl?)
+
+PRACTICE INSERT DOCUMENTS:
+db.collection.insertMany() can insert multiple documents into a collection. Pass an array of documents to the method.
+
+The following example inserts new documents into the inventory collection:
+
+> db.inventory.insertMany([
+...    // MongoDB adds the _id field with an ObjectId if _id is not present
+...    { item: "journal", qty: 25, status: "A",
+...        size: { h: 14, w: 21, uom: "cm" }, tags: [ "blank", "red" ] },
+...    { item: "notebook", qty: 50, status: "A",
+...        size: { h: 8.5, w: 11, uom: "in" }, tags: [ "red", "blank" ] },
+...    { item: "paper", qty: 100, status: "D",
+...        size: { h: 8.5, w: 11, uom: "in" }, tags: [ "red", "blank", "plain" ] },
+...    { item: "planner", qty: 75, status: "D",
+...        size: { h: 22.85, w: 30, uom: "cm" }, tags: [ "blank", "red" ] },
+...    { item: "postcard", qty: 45, status: "A",
+...        size: { h: 10, w: 15.25, uom: "cm" }, tags: [ "blue" ] }
+... ]);
+{
+        "acknowledged" : true,
+        "insertedIds" : [
+                ObjectId("5bc60e853508417f0a2f4922"),
+                ObjectId("5bc60e853508417f0a2f4923"),
+                ObjectId("5bc60e853508417f0a2f4924"),
+                ObjectId("5bc60e853508417f0a2f4925"),
+                ObjectId("5bc60e853508417f0a2f4926")
+        ]
+}
+
+insertMany() returns a document that includes the newly inserted documents _id field values. See the reference for an example.
+
+Use db.collection.insertOne() to insert a single document.
+
+For more information and examples, see Insert Documents in the CRUD section.
+
+#______________________________________________________________________
+
+PRACTICE QUERY DOCUMENTS:
+
+ -- Select All Documents:
+To select all documents in the collection, pass an empty document as the query filter document to the db.collection.find() method:
+
+> db.inventory.find( {} )
+{ "_id" : ObjectId("5bc60e853508417f0a2f4922"), "item" : "journal", "qty" : 25, "status" : "A", "size" : { "h" : 14, "w" : 21, "uom" : "cm" }, "tags" : [ "blank", "red" ] }
+{ "_id" : ObjectId("5bc60e853508417f0a2f4923"), "item" : "notebook", "qty" : 50, "status" : "A", "size" : { "h" : 8.5, "w" : 11, "uom" : "in" }, "tags" : [ "red", "blank" ] }
+{ "_id" : ObjectId("5bc60e853508417f0a2f4924"), "item" : "paper", "qty" : 100, "status" : "D", "size" : { "h" : 8.5, "w" : 11, "uom" : "in" }, "tags" : [ "red", "blank", "plain" ] }
+{ "_id" : ObjectId("5bc60e853508417f0a2f4925"), "item" : "planner", "qty" : 75, "status" : "D", "size" : { "h" : 22.85, "w" : 30, "uom" : "cm" }, "tags" : [ "blank", "red" ] }
+{ "_id" : ObjectId("5bc60e853508417f0a2f4926"), "item" : "postcard", "qty" : 45, "status" : "A", "size" : { "h" : 10, "w" : 15.25, "uom" : "cm" }, "tags" : [ "blue" ] }
+
+#-------------------------------------------
+
+-- Select Documents Matching Specific Conditions:
+To query for documents that match specific equality conditions, pass the find() method a query filter document with the <field>: <value> of the desired documents. The following example selects from the inventory collection all documents where the status equals "D":
+
+> db.inventory.find( { status: "D" } )
+{ "_id" : ObjectId("5bc60e853508417f0a2f4924"), "item" : "paper", "qty" : 100, "status" : "D", "size" : { "h" : 8.5, "w" : 11, "uom" : "in" }, "tags" : [ "red", "blank", "plain" ] }
+{ "_id" : ObjectId("5bc60e853508417f0a2f4925"), "item" : "planner", "qty" : 75, "status" : "D", "size" : { "h" : 22.85, "w" : 30, "uom" : "cm" }, "tags" : [ "blank", "red" ] }
+
+#-------------------------------------------
+
+-- Match an Embedded Document:
+Equality matches on the whole embedded document require an exact match of the specified <value> document, including the field order. For example, the following query selects all documents where the field size equals the document { h: 14, w: 21, uom: "cm" }:
+
+> db.inventory.find( { size: { h: 14, w: 21, uom: "cm" } } )
+{ "_id" : ObjectId("5bc60e853508417f0a2f4922"), "item" : "journal", "qty" : 25, "status" : "A", "size" : { "h" : 14, "w" : 21, "uom" : "cm" }, "tags" : [ "blank", "red" ] }
+
+#-------------------------------------------
+
+-- Match a Field in an Embedded Document:
+The following example selects all documents where the field uom nested in the size field equals the string value "in":
+
+> db.inventory.find( { "size.uom": "in" } )
+{ "_id" : ObjectId("5bc60e853508417f0a2f4923"), "item" : "notebook", "qty" : 50, "status" : "A", "size" : { "h" : 8.5, "w" : 11, "uom" : "in" }, "tags" : [ "red", "blank" ] }
+{ "_id" : ObjectId("5bc60e853508417f0a2f4924"), "item" : "paper", "qty" : 100, "status" : "D", "size" : { "h" : 8.5, "w" : 11, "uom" : "in" }, "tags" : [ "red", "blank", "plain" ] }
+
+#-------------------------------------------
+
+-- Match an Element in an Array:
+The following example queries for all documents where tags is an array that contains the string "red" as one of its elements:
+
+> db.inventory.find( { tags: "red" } )
+{ "_id" : ObjectId("5bc60e853508417f0a2f4922"), "item" : "journal", "qty" : 25, "status" : "A", "size" : { "h" : 14, "w" : 21, "uom" : "cm" }, "tags" : [ "blank", "red" ] }
+{ "_id" : ObjectId("5bc60e853508417f0a2f4923"), "item" : "notebook", "qty" : 50, "status" : "A", "size" : { "h" : 8.5, "w" : 11, "uom" : "in" }, "tags" : [ "red", "blank" ] }
+{ "_id" : ObjectId("5bc60e853508417f0a2f4924"), "item" : "paper", "qty" : 100, "status" : "D", "size" : { "h" : 8.5, "w" : 11, "uom" : "in" }, "tags" : [ "red", "blank", "plain" ] }
+{ "_id" : ObjectId("5bc60e853508417f0a2f4925"), "item" : "planner", "qty" : 75, "status" : "D", "size" : { "h" : 22.85, "w" : 30, "uom" : "cm" }, "tags" : [ "blank", "red" ] }
+
+#-------------------------------------------
+
+-- Match an Array Exactly:
+The following example queries for all documents where the field tags value is an array with exactly two elements, "red" and "blank", in the specified order:
+
+> db.inventory.find( { tags: ["red", "blank"] } )
+{ "_id" : ObjectId("5bc60e853508417f0a2f4923"), "item" : "notebook", "qty" : 50, "status" : "A", "size" : { "h" : 8.5, "w" : 11, "uom" : "in" }, "tags" : [ "red", "blank" ] }
+>
+
+#______________________________________________________________________
+
