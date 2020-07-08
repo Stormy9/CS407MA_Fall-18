@@ -1,0 +1,100 @@
+!!! WARNING The following tests failed:
+
+*** [err]: Active defrag in tests/unit/memefficiency.tcl
+defrag didn't stop.
+Cleanup: may take some time... OK
+make[1]: *** [test] Error 1
+make[1]: Leaving directory `/usr/local/src/redis-stable/src'
+make: *** [test] Error 2
+
+
+
+more stuff:
+
+ec2-user@ip-172-31-27-206: /usr/local/src/redis-stable:
+$ sudo wget https://raw.githubusercontent.com/saxenap/install-redis-amazon-linux-centos/master/redis-server
+--2018-11-15 17:16:40--  https://raw.githubusercontent.com/saxenap/install-redis-amazon-linux-centos/master/redis-server
+Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 151.101.200.133
+Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|151.101.200.133|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 2025 (2.0K) [text/plain]
+Saving to: ‘redis-server’
+
+redis-server                          100%[========================================================================>]   1.98K  --.-KB/s    in 0s
+
+2018-11-15 17:16:41 (28.7 MB/s) - ‘redis-server’ saved [2025/2025]
+
+
+ec2-user@ip-172-31-27-206: /usr/local/src/redis-stable:
+$ sudo mv redis-server /etc/init.d
+
+ec2-user@ip-172-31-27-206: /usr/local/src/redis-stable:
+$ sudo chmod 755 /etc/init.d/redis-server
+
+ec2-user@ip-172-31-27-206: /usr/local/src/redis-stable:
+$ sudo vi /etc/init.d/redis-server
+
+ec2-user@ip-172-31-27-206: /usr/local/src/redis-stable:
+$ sudo chkconfig --add redis-server
+
+ec2-user@ip-172-31-27-206: /usr/local/src/redis-stable:
+$ sudo chkconfig --level 345 redis-server on
+
+ec2-user@ip-172-31-27-206: /usr/local/src/redis-stable:
+$ sudo service redis-server start
+
+Starting redis-server:                                     [  OK  ]
+
+ec2-user@ip-172-31-27-206: /usr/local/src/redis-stable:
+$
+
+ec2-user@ip-172-31-27-206: /usr/local/src/redis-stable:
+$ sudo vi /etc/systctl.conf
+
+ec2-user@ip-172-31-27-206: /usr/local/src/redis-stable:
+$ redis cli ping
+-bash: redis: command not found
+
+ec2-user@ip-172-31-27-206: /usr/local/src/redis-stable:
+$ redis-cli ping
+PONG
+
+ec2-user@ip-172-31-27-206: /usr/local/src/redis-stable:
+$
+
+OH. MY. GOD... (:
+
+
+ec2-user@ip-172-31-27-206: /usr/local/src/redis-stable:
+$ redis-cli
+127.0.0.1:6379> ping
+PONG
+127.0.0.1:6379> set myKey 9
+OK
+127.0.0.1:6379> get myKey
+"9"
+127.0.0.1:6379>
+
+
+fucking awesome... (:
+
+
+testing
+ec2-user@ip-172-31-27-206: ~:
+$ ls
+beer-on-the-wall.py          cs407_inclass_10-11-12                       cs407_inclass_11-13-18_latency    exp                  README.md
+cs407_coverage_exp           cs407_inclass_10-16-18_mongoDB               cs407_inclass_11-15-18_TaskQue    _fun_exp             test.txt
+cs407_flask_exp              cs407_inclass_10-18-18_divisors              cs407_midterm_part1_server        git_commit.sh        wolfit
+cs407_inclass10-02-19_flask  cs407_inclass_10-23-18_divisorsMS            cs407_midterm_part2_client        holmant_cs407_hwk01
+cs407_inclass10-04-18_curl   cs407_inclass_11-01-18_nginx-install-test    cs407_outOfClass_11-06-18_Heroku  holmant_CS407_hwk03
+cs407_inclass_10-09-18_rest  cs407_inclass_11-08-18_mongoengineEnvConfig  data                              holmant_cs407_hwk05
+
+ec2-user@ip-172-31-27-206: ~:
+$ redis-cli ping
+PONG
+
+ec2-user@ip-172-31-27-206: ~:
+$
+
+
+ha! fucking awesome...  (:

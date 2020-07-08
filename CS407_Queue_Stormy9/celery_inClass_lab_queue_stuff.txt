@@ -1,0 +1,482 @@
+# ORIGINAL CODE:
+# from celery import Celery
+#
+#app = Celery('tasks', broker='redis://localhost')
+#
+#@app.task
+#def add(x, y):
+#	return x + y
+#
+#
+# no rundev.sh
+#
+#
+#
+# PROF BROOKS' INSTRUCTIONS FOR IN-CLASS WORK:
+#    
+# In-class work for 2018-11-15
+# In-Class Assignment - Task Queue
+#
+# Build the simple addition task queue described in the Celery tutorial
+# and in the screencast.
+#
+# 1.  Use the Celery first steps guidance to build a task queue.
+
+# 2.  Your tasks.py will look like this:
+#___________________________________________
+##At the top of your app.py
+#from celery import Celery
+#
+#app = Celery('tasks', broker='redis://localhost')
+#
+#@app.task
+#def add(x, y):
+#    return x + y
+#___________________________________________
+#
+#Use the Python shell to experiment with:
+#   Directly calling the add function (without delay)
+#   Calling the add function with a delay
+#   (Optional) add backend queue to gather responses from the add function.
+#
+# How to submit your work:
+#   I've automatically created a repository for you named queue-<user>. 
+#   You should have seen an invite to this repository.
+#   Push your work to this repository (after committing) for credit.
+#
+#
+#______________________________________________________________________
+#
+# FROM CELERY 1st STEPS PAGE:  
+# (see http://docs.celeryproject.org/en/latest/getting-started/first-steps-with-celery.html#first-steps -- for links to stuff in the text below)
+# 
+# RUNNING THE CELERY WORKER SERVER -- 
+# You can now run the worker by executing our program with
+# the worker argument:
+#
+#$ celery -A tasks worker --loglevel=info
+#
+# Note:
+# See the Troubleshooting section if the worker doesn’t start.
+#
+# In production you’ll want to run the worker in the background as
+# a daemon.
+# To do this you need to use the tools provided by your platform, or
+# something like 'supervisord' (see Daemonization for more info).
+#
+# For a complete listing of the command-line options available, do:
+#$  celery worker --help
+#
+# There are also several other commands available, and help is also available:
+#$ celery help
+#
+#
+# CALLING THE TASK --
+# To call our task you can use the delay() method.
+#
+# This is a handy shortcut to the apply_async() method that gives
+# greater control of the task execution (see Calling Tasks):
+#
+#>>> from tasks import add
+#>>> add.delay(4, 4)
+# 
+#The task has now been processed by the worker you started earlier.
+# You can verify this by looking at the worker’s console output.
+#
+# Calling a task returns an AsyncResult instance. This can be used to
+# check the state of the task, wait for the task to finish, or get its
+# return value (or if the task failed, to get the exception & traceback).
+#
+# Results are not enabled by default. In order to do remote procedure
+# calls or keep track of task results in a database, you will need to
+# configure Celery to use a result backend. This is described in the
+# next section.
+#
+#
+# KEEPING RESULTS --
+# If you want to keep track of the tasks’ states, Celery needs to store
+# or send the states somewhere...
+# 
+# There are several built-in result backends to choose from:
+#   SQLAlchemy/Django ORM, Memcached, Redis, RPC (RabbitMQ/AMQP), and – 
+#   or you can define your own.
+#
+# For this example we use the rpc result backend, that sends states
+# back as transient messages. The backend is specified via the backend
+# argument to Celery, (or via the result_backend setting if you choose
+# to use a configuration module):
+# 
+#   app = Celery('tasks', backend='rpc://', broker='pyamqp://')
+#
+# Or if you want to use Redis as the result backend, but still use
+# RabbitMQ as the message broker (a popular combination):
+#
+#   app = Celery('tasks', backend='redis://localhost', broker='pyamqp://')
+#
+# To read more about result backends please see Result Backends.
+#
+# Now with the result backend configured, let’s call the task again. 
+# This time you’ll hold on to the AsyncResult instance returned when
+# you call a task:
+#
+#>>> result = add.delay(4, 4)
+#
+# The ready() method returns whether the task has finished processing
+# or not:
+#
+#   >>> result.ready()
+#   False
+#
+#
+# You can wait for the result to complete, but this is rarely used
+# since it turns the asynchronous call into a synchronous one:
+#
+#   >>> result.get(timeout=1)
+#   8
+#
+# In case the task raised an exception, get() will re-raise the
+# exception, but you can override this by specifying the propagate
+# argument:
+#
+#   >>> result.get(propagate=False)
+#
+# If the task raised an exception, you can also gain access to the
+# original traceback:
+#
+#   >>> result.traceback
+#
+# WARNING:
+# Backends use resources to store and transmit results. To ensure that
+# resources are released, you must eventually call get() or forget() on
+# EVERY AsyncResult instance returned after calling a task.
+#
+# See celery.result for the complete result object reference.
+#
+# See page for stuff on Configuration -- which I don't think we need
+#   for this/these assignments.
+#
+#----------------------------------------------------------------------
+# what i got at first:
+#----------------------------------------------------------------------
+#
+#(cs407_inclass_11-15-18_TaskQue-7oW8s1VC)
+#ec2-user@ip-172-31-27-206: ~/cs407_inclass_11-15-18_TaskQue:
+#$ celery -A tasks worker --loglevel=info
+#Traceback (most recent call last):
+#  File "/home/ec2-user/.local/share/virtualenvs/cs407_inclass_11-15-18_TaskQue-7oW8s1VC/bin/celery", line 11, in <module>
+#    sys.exit(main())
+#  File "/home/ec2-user/.local/share/virtualenvs/cs407_inclass_11-15-18_TaskQue-7oW8s1VC/local/lib/python3.6/site-packages/celery/__main__.py", line 16, in main
+#    _main()
+#  File "/home/ec2-user/.local/share/virtualenvs/cs407_inclass_11-15-18_TaskQue-7oW8s1VC/local/lib/python3.6/site-packages/celery/bin/celery.py", line 322, in main
+#    cmd.execute_from_commandline(argv)
+#  File "/home/ec2-user/.local/share/virtualenvs/cs407_inclass_11-15-18_TaskQue-7oW8s1VC/local/lib/python3.6/site-packages/celery/bin/celery.py", line 496, in execute_from_commandline
+#    super(CeleryCommand, self).execute_from_commandline(argv)))
+#  File "/home/ec2-user/.local/share/virtualenvs/cs407_inclass_11-15-18_TaskQue-7oW8s1VC/local/lib/python3.6/site-packages/celery/bin/base.py", line 275, in execute_from_commandline
+#    return self.handle_argv(self.prog_name, argv[1:])
+#  File "/home/ec2-user/.local/share/virtualenvs/cs407_inclass_11-15-18_TaskQue-7oW8s1VC/local/lib/python3.6/site-packages/celery/bin/celery.py", line 488, in handle_argv
+#    return self.execute(command, argv)
+#  File "/home/ec2-user/.local/share/virtualenvs/cs407_inclass_11-15-18_TaskQue-7oW8s1VC/local/lib/python3.6/site-packages/celery/bin/celery.py", line 420, in execute
+#    ).run_from_argv(self.prog_name, argv[1:], command=argv[0])
+#  File "/home/ec2-user/.local/share/virtualenvs/cs407_inclass_11-15-18_TaskQue-7oW8s1VC/local/lib/python3.6/site-packages/celery/bin/worker.py", line 223, in run_from_argv
+#    return self(*args, **options)
+#  File "/home/ec2-user/.local/share/virtualenvs/cs407_inclass_11-15-18_TaskQue-7oW8s1VC/local/lib/python3.6/site-packages/celery/bin/base.py", line 238, in __call__
+#    ret = self.run(*args, **kwargs)
+#  File "/home/ec2-user/.local/share/virtualenvs/cs407_inclass_11-15-18_TaskQue-7oW8s1VC/local/lib/python3.6/site-packages/celery/bin/worker.py", line 257, in run
+#    **kwargs)
+#  File "/home/ec2-user/.local/share/virtualenvs/cs407_inclass_11-15-18_TaskQue-7oW8s1VC/local/lib/python3.6/site-packages/celery/worker/worker.py", line 101, in __init__
+#    self.setup_instance(**self.prepare_args(**kwargs))
+#  File "/home/ec2-user/.local/share/virtualenvs/cs407_inclass_11-15-18_TaskQue-7oW8s1VC/local/lib/python3.6/site-packages/celery/worker/worker.py", line 124, in setup_instance
+#    self.should_use_eventloop() if use_eventloop is None
+#  File "/home/ec2-user/.local/share/virtualenvs/cs407_inclass_11-15-18_TaskQue-7oW8s1VC/local/lib/python3.6/site-packages/celery/worker/worker.py", line 243, in should_use_eventloop
+#    self._conninfo.transport.implements.asynchronous and
+#  File "/home/ec2-user/.local/share/virtualenvs/cs407_inclass_11-15-18_TaskQue-7oW8s1VC/local/lib/python3.6/site-packages/kombu/connection.py", line 844, in transport
+#    self._transport = self.create_transport()
+#  File "/home/ec2-user/.local/share/virtualenvs/cs407_inclass_11-15-18_TaskQue-7oW8s1VC/local/lib/python3.6/site-packages/kombu/connection.py", line 576, in create_transport
+#    return self.get_transport_cls()(client=self)
+#  File "/home/ec2-user/.local/share/virtualenvs/cs407_inclass_11-15-18_TaskQue-7oW8s1VC/local/lib/python3.6/site-packages/kombu/transport/redis.py", line 1009, in __init__
+#    raise ImportError('Missing redis library (pip install redis)')
+#ImportError: Missing redis library (pip install redis)
+#
+#(cs407_inclass_11-15-18_TaskQue-7oW8s1VC)
+#ec2-user@ip-172-31-27-206: ~/cs407_inclass_11-15-18_TaskQue:
+#$ redis-cli ping
+#PONG
+#
+#(cs407_inclass_11-15-18_TaskQue-7oW8s1VC)
+#ec2-user@ip-172-31-27-206: ~/cs407_inclass_11-15-18_TaskQue:
+#$ pip install redis
+#Collecting redis
+#  Downloading https://files.pythonhosted.org/packages/f5/00/5253aff5e747faf10d8ceb35fb5569b848cde2fdc13685d42fcf63118bbc/redis-#3.0.1-py2.py3-none-any.whl (61kB)
+#    100% |████████████████████████████████| 71kB 3.2MB/s
+#Installing collected packages: redis
+#Successfully installed redis-3.0.1
+#
+#(cs407_inclass_11-15-18_TaskQue-7oW8s1VC)
+#ec2-user@ip-172-31-27-206: ~/cs407_inclass_11-15-18_TaskQue:
+#$ celery -A tasks worker --loglevel=info
+#
+# -------------- celery@ip-172-31-27-206 v4.2.1 (windowlicker)
+#---- **** -----
+#--- * ***  * -- Linux-4.14.70-67.55.amzn1.x86_64-x86_64-with-glibc2.3.4 2018-11-26 00:02:57
+#-- * - **** ---
+#- ** ---------- [config]
+#- ** ---------- .> app:         tasks:0x7f0fb0efe748
+#- ** ---------- .> transport:   redis://localhost:6379//
+#- ** ---------- .> results:     disabled://
+#- *** --- * --- .> concurrency: 1 (prefork)
+#-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+#--- ***** -----
+# -------------- [queues]
+#                .> celery           exchange=celery(direct) key=celery
+#
+#
+#[tasks]
+#  . tasks.add
+#
+#[2018-11-26 00:02:57,788: INFO/MainProcess] Connected to redis://localhost:6379//
+#[2018-11-26 00:02:57,796: INFO/MainProcess] mingle: searching for neighbors
+#[2018-11-26 00:02:58,812: INFO/MainProcess] mingle: all alone
+#[2018-11-26 00:02:58,820: INFO/MainProcess] celery@ip-172-31-27-206 ready.
+#
+#   woo-hoo!  i think!  (: 
+#
+#  OOPS -- NO... GRRRRR:
+#
+# [2018-11-26 00:22:53,223: CRITICAL/MainProcess] Unrecoverable error: AttributeError("'float' object has no attribute 'items'",)
+#Traceback (most recent call last):
+#  File "/home/ec2-user/.local/share/virtualenvs/cs407_inclass_11-15-18_TaskQue-7oW8s1VC/local/lib/python3.6/site-packages/celery/worker/worker.py", line 205, in start
+#    self.blueprint.start(self)
+#  File "/home/ec2-user/.local/share/virtualenvs/cs407_inclass_11-15-18_TaskQue-7oW8s1VC/local/lib/python3.6/site-packages/celery/bootsteps.py", line 119, in start
+#    step.start(parent)
+#  File "/home/ec2-user/.local/share/virtualenvs/cs407_inclass_11-15-18_TaskQue-7oW8s1VC/local/lib/python3.6/site-packages/celery/bootsteps.py", line 369, in start
+#    return self.obj.start()
+#  File "/home/ec2-user/.local/share/virtualenvs/cs407_inclass_11-15-18_TaskQue-7oW8s1VC/local/lib/python3.6/site-packages/celery/worker/consumer/consumer.py", line 317, in start
+#    blueprint.start(self)
+#  File "/home/ec2-user/.local/share/virtualenvs/cs407_inclass_11-15-18_TaskQue-7oW8s1VC/local/lib/python3.6/site-packages/celery/bootsteps.py", line 119, in start
+#    step.start(parent)
+#  File "/home/ec2-user/.local/share/virtualenvs/cs407_inclass_11-15-18_TaskQue-7oW8s1VC/local/lib/python3.6/site-packages/celery/worker/consumer/consumer.py", line 593, in start
+#    c.loop(*c.loop_args())
+#  File "/home/ec2-user/.local/share/virtualenvs/cs407_inclass_11-15-18_TaskQue-7oW8s1VC/local/lib/python3.6/site-packages/celery/worker/loops.py", line 91, in asynloop
+#    next(loop)
+#  File "/home/ec2-user/.local/share/virtualenvs/cs407_inclass_11-15-18_TaskQue-7oW8s1VC/local/lib/python3.6/site-packages/kombu/asynchronous/hub.py", line 354, in create_loop
+#    cb(*cbargs)
+#  File "/home/ec2-user/.local/share/virtualenvs/cs407_inclass_11-15-18_TaskQue-7oW8s1VC/local/lib/python3.6/site-packages/kombu/transport/redis.py", line 1040, in on_readable
+#    self.cycle.on_readable(fileno)
+#  File "/home/ec2-user/.local/share/virtualenvs/cs407_inclass_11-15-18_TaskQue-7oW8s1VC/local/lib/python3.6/site-packages/kombu/transport/redis.py", line 337, in on_readable
+#    chan.handlers[type]()
+#  File "/home/ec2-user/.local/share/virtualenvs/cs407_inclass_11-15-18_TaskQue-7oW8s1VC/local/lib/python3.6/site-packages/kombu/transport/redis.py", line 724, in _brpop_read
+#    self.connection._deliver(loads(bytes_to_str(item)), dest)
+#  File "/home/ec2-user/.local/share/virtualenvs/cs407_inclass_11-15-18_TaskQue-7oW8s1VC/local/lib/python3.6/site-packages/kombu/transport/virtual/base.py", line 983, in _deliver
+#    callback(message)
+#  File "/home/ec2-user/.local/share/virtualenvs/cs407_inclass_11-15-18_TaskQue-7oW8s1VC/local/lib/python3.6/site-packages/kombu/transport/virtual/base.py", line 632, in _callback
+#    self.qos.append(message, message.delivery_tag)
+#  File "/home/ec2-user/.local/share/virtualenvs/cs407_inclass_11-15-18_TaskQue-7oW8s1VC/local/lib/python3.6/site-packages/kombu/transport/redis.py", line 149, in append
+#    pipe.zadd(self.unacked_index_key, time(), delivery_tag) \
+#  File "/home/ec2-user/.local/share/virtualenvs/cs407_inclass_11-15-18_TaskQue-7oW8s1VC/local/lib/python3.6/site-packages/redis/client.py", line 2263, in zadd
+#    for pair in iteritems(mapping):
+#  File "/home/ec2-user/.local/share/virtualenvs/cs407_inclass_11-15-18_TaskQue-7oW8s1VC/local/lib/python3.6/site-packages/redis/_compat.py", line 123, in iteritems
+#    return iter(x.items())
+#AttributeError: 'float' object has no attribute 'items'
+#
+#
+# HERE'S WHAT I GOT IN THE PYTHON SHELL:
+#
+#   >>> from tasks import add
+#   >>> add.delay(4,5)
+#   <AsyncResult: 687b8d96-d807-41cc-a515-7809267e828e>
+#
+#
+#
+# THANKFULLY -- before posting to class forum, I recalled & found this:
+#    
+# Fixing Celery/Redis AttributeError: 
+#   'Float' object has no attribute 'items'
+# @LeoThalman                                               10 days ago
+#
+# if you get an Attribute error in celery when adding a task to the
+# queue with delay,  then run following command to rollback redis to
+# an install that works:
+#
+#       pip install redis==2.10.6
+#
+#
+#
+# THEN DID THIS:
+#
+# (cs407_inclass_11-15-18_TaskQue-7oW8s1VC)
+# ec2-user@ip-172-31-27-206: ~/cs407_inclass_11-15-18_TaskQue:
+# $ pip install redis==2.10.6
+# Collecting redis==2.10.6
+#  Downloading https://files.pythonhosted.org/packages/3b/f6/7a76333cf0b9251ecf49efff635015171843d9b977e4ffcf59f9c4428052/redis-2.10.6-py2.py3-none-any.whl (64kB)
+#    100% |████████████████████████████████| 71kB 3.2MB/s
+#Installing collected packages: redis
+#  Found existing installation: redis 3.0.1
+#    Uninstalling redis-3.0.1:
+#      Successfully uninstalled redis-3.0.1
+#Successfully installed redis-2.10.6
+#
+#(cs407_inclass_11-15-18_TaskQue-7oW8s1VC)
+#ec2-user@ip-172-31-27-206: ~/cs407_inclass_11-15-18_TaskQue:
+#$ celery -A tasks worker --loglevel=info
+#
+# -------------- celery@ip-172-31-27-206 v4.2.1 (windowlicker)
+#---- **** -----
+#--- * ***  * -- Linux-4.14.70-67.55.amzn1.x86_64-x86_64-with-glibc2.3.4 2018-11-26 01:34:16
+#-- * - **** ---
+#- ** ---------- [config]
+#- ** ---------- .> app:         tasks:0x7f89c3209748
+#- ** ---------- .> transport:   redis://localhost:6379//
+#- ** ---------- .> results:     disabled://
+#- *** --- * --- .> concurrency: 1 (prefork)
+#-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+#--- ***** -----
+# -------------- [queues]
+#                .> celery           exchange=celery(direct) key=celery
+#
+#
+#[tasks]
+#  . tasks.add
+#
+#[2018-11-26 01:34:16,852: INFO/MainProcess] Connected to redis://localhost:6379//
+#[2018-11-26 01:34:16,859: INFO/MainProcess] mingle: searching for neighbors
+#[2018-11-26 01:34:17,876: INFO/MainProcess] mingle: all alone
+#[2018-11-26 01:34:17,882: INFO/MainProcess] celery@ip-172-31-27-206 ready.
+#
+#
+#
+# AND GOT THIS IN THE PYTHON SHELL:
+# 
+#   >>> from tasks import add
+#   >>> add(4,5)
+#   9
+#   >>> add.delay(4,5)
+#   <AsyncResult: 0b9f55cc-e0c3-402a-964f-5bae202c6fdf>
+#
+# AND THIS IN THE SHELL RUNNING CELERY:
+#
+# [2018-11-26 01:36:48,923: INFO/MainProcess] Received task: tasks.add[0b9f55cc-e0c3-402a-964f-5bae202c6fdf]
+# [2018-11-26 01:36:48,925: INFO/ForkPoolWorker-1] Task tasks.add[0b9f55cc-e0c3-402a-964f-5bae202c6fdf] succeeded in 0.0004292083904147148s: 9
+#
+#
+# woo-fucking-hoo!  (: 
+#
+# 
+#
+# THEN ADDED THE 'backend' PER THE CELERY 1st STEPS TUTORIAL:
+# 
+# from celery import Celery
+#
+## this is from assignment instructions --
+##       so this is right way to connect to redis:
+##         ADDED the backend per the Celery 1st Steps:
+#app = Celery('tasks', backend='redis://localhost', broker='redis://localhost')
+#
+#@app.task
+#def add(x, y):
+#        return x + y
+#
+#
+# AND STOPPED/RESTARTED THE CELERY WORKER:
+#
+# ec2-user@ip-172-31-27-206: ~/cs407_inclass_11-15-18_TaskQue:
+# $ celery -A tasks worker --loglevel=info
+# 
+# -------------- celery@ip-172-31-27-206 v4.2.1 (windowlicker)
+#---- **** -----
+#--- * ***  * -- Linux-4.14.70-67.55.amzn1.x86_64-x86_64-with-glibc2.3.4 2018-11-26 1:41:14
+#-- * - **** ---
+#- ** ---------- [config]
+#- ** ---------- .> app:         tasks:0x7f19e4bb5748
+#- ** ---------- .> transport:   redis://localhost:6379//
+#- ** ---------- .> results:     redis://localhost/
+#- *** --- * --- .> concurrency: 1 (prefork)
+#-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+#--- ***** -----
+# -------------- [queues]
+#                .> celery           exchange=celery(direct) key=celery
+#
+#
+#[tasks]
+#  . tasks.add
+#
+#[2018-11-26 01:41:14,428: INFO/MainProcess] Connected to redis://localhost:6379//
+#[2018-11-26 01:41:14,435: INFO/MainProcess] mingle: searching for neighbors
+#[2018-11-26 01:41:15,452: INFO/MainProcess] mingle: all alone
+#[2018-11-26 01:41:15,458: INFO/MainProcess] celery@ip-172-31-27-206 ready.
+#
+#
+# AND DID/GOT THIS IN THE PYTHON SHELL: 
+#   (note i had to exit/re-enter python shell -- before that got error)
+#
+#   >>> from tasks import add
+#   >>> add(4,5)
+#   9
+#   >>> add.delay(3,6)
+#   <AsyncResult: 27d94a6c-ec49-4d32-8124-a48a679f2ef5>
+#   >>> result = add.delay(4,5)
+#   >>> result.ready()
+#   True                         <-- note i got 'true' like right away!
+#   >>> result = add.delay(9,9)
+#   >>> result.ready()
+#   True                         <-- note i got 'true' like right away!
+#
+#
+# AND ALL THIS SHOWED UP ON THE CELERY WORKER SHELL:
+# 
+# [2018-11-26 01:45:39,240: INFO/MainProcess] Received task: tasks.add[27d94a6c-ec49-4d32-8124-a48a679f2ef5]
+# [2018-11-26 01:45:39,247: INFO/ForkPoolWorker-1] Task tasks.add[27d94a6c-ec49-4d32-8124-a48a679f2ef5] succeeded in 0.004556800238788128s: 9
+# [2018-11-26 01:46:04,538: INFO/MainProcess] Received task: tasks.add[01765b3e-3b19-4790-9c2b-c59527187cac]
+# [2018-11-26 01:46:04,540: INFO/ForkPoolWorker-1] Task tasks.add[01765b3e-3b19-4790-9c2b-c59527187cac] succeeded in 0.00039362069219350815s: 9
+# [2018-11-26 01:49:58,635: INFO/MainProcess] Received task: tasks.add[800f08f9-982f-47dd-86a7-d7f6407cac7a]
+# [2018-11-26 01:49:58,637: INFO/ForkPoolWorker-1] Task tasks.add[800f08f9-982f-47dd-86a7-d7f6407cac7a] succeeded in 0.0004060901701450348s: 9
+# [2018-11-26 01:50:30,006: INFO/MainProcess] Received task: tasks.add[a8293dad-47f4-48be-a079-6e823bacf029]
+# [2018-11-26 01:50:30,008: INFO/ForkPoolWorker-1] Task tasks.add[a8293dad-47f4-48be-a079-6e823bacf029] succeeded in 0.0009216554462909698s: 9
+# [2018-11-26 01:51:57,496: INFO/MainProcess] Received task: tasks.add[e1938ab4-191f-4807-be1a-2002ccc0d559]
+# [2018-11-26 01:51:57,497: INFO/ForkPoolWorker-1] Task tasks.add[e1938ab4-191f-4807-be1a-2002ccc0d559] succeeded in 0.00039995182305574417s: 18
+# # [2018-11-26 01:58:02,687: INFO/MainProcess] Received task: tasks.add[d7cf7214-b9dd-4f1b-9adc-3cf6f2d43390]
+# [2018-11-26 01:58:02,688: INFO/ForkPoolWorker-1] Task tasks.add[d7cf7214-b9dd-4f1b-9adc-3cf6f2d43390] succeeded in 0.0003975173458456993s: 7
+# [2018-11-26 02:05:24,334: INFO/MainProcess] Received task: tasks.add[d7efc4a5-3abb-493c-a40c-dd7aeb48533b]
+# [2018-11-26 02:05:24,336: INFO/ForkPoolWorker-1] Task tasks.add[d7efc4a5-3abb-493c-a40c-dd7aeb48533b] succeeded in 0.00042986683547496796s: 27
+#
+#
+# BACK TO PYTHON:
+#
+#   >>> result.get(timeout=3)
+#   18
+#
+#
+# so it's working -- but I'm not seeing any noticeable delay... (: 
+# 
+#   >>> result.traceback
+#   >>> sum = add.delay(4,3)
+#   >>> result.ready()
+#   True
+#   >>> sum = add.delay(17,10)
+#   >>> sum.ready()
+#   True
+#
+#
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 

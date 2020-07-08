@@ -1,0 +1,27 @@
+   
+In-class work for 2018-11-13
+@brookscl
+
+
+In-Class Assignment - Simulating Server Latency
+
+Build a simple Flask server in class and test it using your browser. 
+Try the following:
+
+Get a "hello world" example running just like you see in the Flask quickstart.
+Introduce a sleep delay in the hello_world(). 
+You can use code like this:
+
+# At the top of your app.py
+import time
+
+# Before the return statement in hello_world()
+time.sleep(5)
+
+
+Interact with your Flask server (browser, curl, etc.) and observe the delayed response. 
+You will be inserting a delay like this into your POST method in the activity logging microservice for the homework due this week.
+
+How to submit your work
+I've automatically created a repository for you named latency-<user>. You should have seen an invite to this repository.
+Push your work to this repository (after committing) for credit.
