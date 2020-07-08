@@ -95,3 +95,7 @@ $ python load_reddit_posts
 You can optionally give the name of a subreddit as the first parameter. By default the script will load from [`/r/learnpython`](https://www.reddit.com/r/learnpython/).
 
 *Note* -- This is script is not terribly resilient and may fail with some title and body formatting issues because of the source data from Reddit.
+
+
+---
+i totally forgot to get a list of my commits on this one..... dang it!
