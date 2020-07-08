@@ -1,0 +1,163 @@
+Note everything is showing up on the browser, as in the demo... (:
+
+# here is the result of the POST action:
+# typed in:
+# curl -H "Content-Type: application/json" --request POST \
+# --data '{"user_id":"6", "username":"Luke", "details":"K9 version of Tasmannian Devil cartoon character"}' \
+# http://0.0.0.0:5000/api/activities/
+{
+  "details": "K9 version of Tasmannian Devil cartoon character", 
+  "id": 9, 
+  "timestamp": "Sat, 13 Oct 2018 03:48:33 GMT", 
+  "user_id": "6", 
+  "username": "Luke"
+}
+#______________________________________________________________________
+
+# here is the results of the GET action (whole list):
+# typed in:
+# curl -H "Content-Type: application/json" --request GET \
+# http://0.0.0.0:5000/api/activities/
+{
+  "activity_log": [
+    [
+      {
+        "details": "she is a bossy princess", 
+        "id": 0, 
+        "timestamp": "Sat, 13 Oct 2018 03:45:56 GMT", 
+        "user_id": 1, 
+        "username": "Possum"
+      }, 
+      {
+        "details": "she likes to boing", 
+        "id": 1, 
+        "timestamp": "Sat, 13 Oct 2018 03:45:56 GMT", 
+        "user_id": 2, 
+        "username": "Lacey"
+      }, 
+      {
+        "details": "she bores holes in your soul with her eyes", 
+        "id": 2, 
+        "timestamp": "Sat, 13 Oct 2018 03:45:56 GMT", 
+        "user_id": 3, 
+        "username": "Zoey"
+      }, 
+      {
+        "details": "he likes to shred the trash & recycling", 
+        "id": 3, 
+        "timestamp": "Sat, 13 Oct 2018 03:45:56 GMT", 
+        "user_id": 4, 
+        "username": "Sawyer"
+      }, 
+      {
+        "details": "he makes the sweetest eyes at you", 
+        "id": 4, 
+        "timestamp": "Sat, 13 Oct 2018 03:45:56 GMT", 
+        "user_id": 5, 
+        "username": "Jack"
+      }
+    ]
+  ]
+}
+#______________________________________________________________________
+
+# okay so this one isn't working quite right... 
+# the GET for a specific ID... 
+# since 'activity_log' has each user inside of {}'s, 
+# 	and all the users in their {}'s are inside of []'s... 
+# 	[id] treats the whole list as the id:
+# (sure i've just got some punctuation wrong or something, somewhere)
+
+# typed in:
+# curl -H "Content-Type: application/json" --request GET \
+# http://0.0.0.0:5000/api/activities/0
+
+[
+  {
+    "details": "she is a bossy princess", 
+    "id": 0, 
+    "timestamp": "Sat, 13 Oct 2018 03:45:56 GMT", 
+    "user_id": 1, 
+    "username": "Possum"
+  }, 
+  {
+    "details": "she likes to boing", 
+    "id": 1, 
+    "timestamp": "Sat, 13 Oct 2018 03:45:56 GMT", 
+    "user_id": 2, 
+    "username": "Lacey"
+  }, 
+  {
+    "details": "she bores holes in your soul with her eyes", 
+    "id": 2, 
+    "timestamp": "Sat, 13 Oct 2018 03:45:56 GMT", 
+    "user_id": 3, 
+    "username": "Zoey"
+  }, 
+  {
+    "details": "he likes to shred the trash & recycling", 
+    "id": 3, 
+    "timestamp": "Sat, 13 Oct 2018 03:45:56 GMT", 
+    "user_id": 4, 
+    "username": "Sawyer"
+  }, 
+  {
+    "details": "he makes the sweetest eyes at you", 
+    "id": 4, 
+    "timestamp": "Sat, 13 Oct 2018 03:45:56 GMT", 
+    "user_id": 5, 
+    "username": "Jack"
+  }
+]
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# and here is what happens when i change the id to 1:
+# typed in:
+# curl -H "Content-Type: application/json" --request GET \
+# http://0.0.0.0:5000/api/activities/1
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<title>404 Not Found</title>
+<h1>Not Found</h1>
+<p>The requested URL was not found on the server.  If you entered the URL manually please check your spelling and try again.</p>
+
+#______________________________________________________________________
+
+# oh -- and here's testing 404:
+# typed in: curl -H "Content-Type: application/json" --request GET \
+# http://0.0.0.0:5000/api/activities/
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<title>404 Not Found</title>
+<h1>Not Found</h1>
+<p>The requested URL was not found on the server.  If you entered the URL manually please check your spelling and try again.</p>
+
+#______________________________________________________________________
+
+#########   GOT GET-SPECIFIC-USER WORKING #########
+#########
+# okay, so NOW the get-a-specific-user thing is working... 
+# typed in:
+# curl -H "Content-Type: application/json" --request GET \
+# http://0.0.0.0:5000/api/activites/0
+{
+  "details": "she is a bossy princess", 
+  "id": 0, 
+  "timestamp": "Mon, 15 Oct 2018 04:09:31 GMT", 
+  "user_id": 1, 
+  "username": "Possum"
+}
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# and here is going for a different specific user:
+# typed in:
+# curl -H "Content-Type: application/json" --request GET \
+# http://0.0.0.0:5000/api/activities/3
+
+{
+  "details": "he likes to shred the trash & recycling", 
+  "id": 3, 
+  "timestamp": "Mon, 15 Oct 2018 04:09:31 GMT", 
+  "user_id": 4, 
+  "username": "Sawyer"
+}

@@ -1,0 +1,194 @@
+FROM ACTIVITY LOG SERVER RUNNING ON PORT :5001
+
+(holmant_CS407_hwk03-eSL_iTeL)
+ec2-user@ip-172-31-27-206: ~/holmant_CS407_hwk03:
+$ ./rundev.sh 5001
+ * Serving Flask app "hwk6_app.py" (lazy loading)
+ * Environment: development
+ * Debug mode: on
+ * Running on http://0.0.0.0:5001/ (Press CTRL+C to quit)
+ * Restarting with stat
+{"_id": {"$oid": "5bfa7f994688bb68bbefa58d"}, "user_id": 11, "username": "Zoey", "timestamp": {"$date": 1543143320803}, "details": "i'm the only one who can reach the kitchen counter"}
+ * Debugger is active!
+ * Debugger PIN: 196-939-066
+{"_id": {"$oid": "5bfa7f994688bb68be316c7d"}, "user_id": 11, "username": "Zoey", "timestamp": {"$date": 1543143321215}, "details": "i'm the only one who can reach the kitchen counter"}
+127.0.0.1 - - [25/Nov/2018 10:56:44] "POST /api/activities/ HTTP/1.0" 201 -
+127.0.0.1 - - [25/Nov/2018 10:57:31] "POST /api/activities/ HTTP/1.0" 201 -
+127.0.0.1 - - [25/Nov/2018 10:57:55] "POST /api/activities/ HTTP/1.0" 201 -
+127.0.0.1 - - [25/Nov/2018 10:58:07] "POST /api/activities/ HTTP/1.0" 201 -
+127.0.0.1 - - [25/Nov/2018 10:59:13] "POST /api/activities/ HTTP/1.0" 201 -
+127.0.0.1 - - [25/Nov/2018 10:59:21] "POST /api/activities/ HTTP/1.0" 201 -
+127.0.0.1 - - [25/Nov/2018 10:59:41] "POST /api/activities/ HTTP/1.0" 201 -
+127.0.0.1 - - [25/Nov/2018 11:00:32] "POST /api/activities/ HTTP/1.0" 201 -
+127.0.0.1 - - [25/Nov/2018 11:05:32] "POST /api/activities/ HTTP/1.0" 201 -
+127.0.0.1 - - [25/Nov/2018 11:05:53] "GET /api/activities/ HTTP/1.0" 201 -
+
+
+_______________________________________________________________________
+
+FROM WOLFIT SERVER RUNNING ON PORT :5000
+
+(wolfit-O8Sqmbes)
+ec2-user@ip-172-31-27-206: ~/wolfit:
+$ ./rundev.sh
+ * Tip: There are .env files present. Do "pip install python-dotenv" to use them.
+ * Environment: development
+ * Debug mode: on
+ * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+ * Restarting with stat
+ * Tip: There are .env files present. Do "pip install python-dotenv" to use them.
+ * Debugger is active!
+ * Debugger PIN: 233-784-572
+73.180.18.113 - - [25/Nov/2018 10:56:19] "GET / HTTP/1.1" 200 -
+91.213.143.248 - - [25/Nov/2018 10:56:22] "GET / HTTP/1.1" 200 -
+91.213.143.248 - - [25/Nov/2018 10:56:22] "GET /static/img/wolfit-logo.png HTTP/1.1" 200 -
+73.180.18.113 - - [25/Nov/2018 10:56:36] "GET /login HTTP/1.1" 200 -
+91.213.143.248 - - [25/Nov/2018 10:56:40] "GET /login HTTP/1.1" 200 -
+91.213.143.248 - - [25/Nov/2018 10:56:40] "GET /static/img/wolfit-logo.png HTTP/1.1" 200 -
+CRITICAL:root:{
+  "details": "Login <User id 4 - possum>",
+  "timestamp": "2018-11-25 10:56:44.148994",
+  "user_id": 4,
+  "username": "possum"
+}
+
+73.180.18.113 - - [25/Nov/2018 10:56:44] "POST /login HTTP/1.1" 302 -
+INFO:werkzeug:73.180.18.113 - - [25/Nov/2018 10:56:44] "POST /login HTTP/1.1" 302 -
+73.180.18.113 - - [25/Nov/2018 10:56:44] "GET /index HTTP/1.1" 200 -
+INFO:werkzeug:73.180.18.113 - - [25/Nov/2018 10:56:44] "GET /index HTTP/1.1" 200 -
+91.213.143.248 - - [25/Nov/2018 10:56:47] "GET /index HTTP/1.1" 200 -
+INFO:werkzeug:91.213.143.248 - - [25/Nov/2018 10:56:47] "GET /index HTTP/1.1" 200 -
+91.213.143.248 - - [25/Nov/2018 10:56:48] "GET /static/img/wolfit-logo.png HTTP/1.1" 200 -
+INFO:werkzeug:91.213.143.248 - - [25/Nov/2018 10:56:48] "GET /static/img/wolfit-logo.png HTTP/1.1" 200 -
+CRITICAL:root:{
+  "details": "Logout <User id 4 - possum>",
+  "timestamp": "2018-11-25 10:57:31.871191",
+  "user_id": 4,
+  "username": "possum"
+}
+
+73.180.18.113 - - [25/Nov/2018 10:57:31] "GET /logout HTTP/1.1" 302 -
+INFO:werkzeug:73.180.18.113 - - [25/Nov/2018 10:57:31] "GET /logout HTTP/1.1" 302 -
+73.180.18.113 - - [25/Nov/2018 10:57:32] "GET /index HTTP/1.1" 200 -
+INFO:werkzeug:73.180.18.113 - - [25/Nov/2018 10:57:32] "GET /index HTTP/1.1" 200 -
+73.180.18.113 - - [25/Nov/2018 10:57:47] "GET /login HTTP/1.1" 200 -
+INFO:werkzeug:73.180.18.113 - - [25/Nov/2018 10:57:47] "GET /login HTTP/1.1" 200 -
+CRITICAL:root:{
+  "details": "Login <User id 6 - sawyer>",
+  "timestamp": "2018-11-25 10:57:55.495973",
+  "user_id": 6,
+  "username": "sawyer"
+}
+
+73.180.18.113 - - [25/Nov/2018 10:57:55] "POST /login HTTP/1.1" 302 -
+INFO:werkzeug:73.180.18.113 - - [25/Nov/2018 10:57:55] "POST /login HTTP/1.1" 302 -
+73.180.18.113 - - [25/Nov/2018 10:57:55] "GET /index HTTP/1.1" 200 -
+INFO:werkzeug:73.180.18.113 - - [25/Nov/2018 10:57:55] "GET /index HTTP/1.1" 200 -
+CRITICAL:root:{
+  "details": "Logout <User id 6 - sawyer>",
+  "timestamp": "2018-11-25 10:58:07.132676",
+  "user_id": 6,
+  "username": "sawyer"
+}
+
+73.180.18.113 - - [25/Nov/2018 10:58:07] "GET /logout HTTP/1.1" 302 -
+INFO:werkzeug:73.180.18.113 - - [25/Nov/2018 10:58:07] "GET /logout HTTP/1.1" 302 -
+73.180.18.113 - - [25/Nov/2018 10:58:07] "GET /index HTTP/1.1" 200 -
+INFO:werkzeug:73.180.18.113 - - [25/Nov/2018 10:58:07] "GET /index HTTP/1.1" 200 -
+73.180.18.113 - - [25/Nov/2018 10:58:11] "GET /login HTTP/1.1" 200 -
+INFO:werkzeug:73.180.18.113 - - [25/Nov/2018 10:58:11] "GET /login HTTP/1.1" 200 -
+73.180.18.113 - - [25/Nov/2018 10:58:20] "GET /register HTTP/1.1" 200 -
+INFO:werkzeug:73.180.18.113 - - [25/Nov/2018 10:58:20] "GET /register HTTP/1.1" 200 -
+91.213.143.248 - - [25/Nov/2018 10:58:23] "GET /register HTTP/1.1" 200 -
+INFO:werkzeug:91.213.143.248 - - [25/Nov/2018 10:58:23] "GET /register HTTP/1.1" 200 -
+91.213.143.248 - - [25/Nov/2018 10:58:23] "GET /static/img/wolfit-logo.png HTTP/1.1" 200 -
+INFO:werkzeug:91.213.143.248 - - [25/Nov/2018 10:58:23] "GET /static/img/wolfit-logo.png HTTP/1.1" 200 -
+73.180.18.113 - - [25/Nov/2018 10:58:37] "POST /register HTTP/1.1" 200 -
+INFO:werkzeug:73.180.18.113 - - [25/Nov/2018 10:58:37] "POST /register HTTP/1.1" 200 -
+CRITICAL:root:{
+  "details": "Register",
+  "timestamp": "2018-11-25 10:59:13.217002",
+  "user_id": 8,
+  "username": "zoey"
+}
+
+73.180.18.113 - - [25/Nov/2018 10:59:13] "POST /register HTTP/1.1" 302 -
+INFO:werkzeug:73.180.18.113 - - [25/Nov/2018 10:59:13] "POST /register HTTP/1.1" 302 -
+73.180.18.113 - - [25/Nov/2018 10:59:13] "GET /login HTTP/1.1" 200 -
+INFO:werkzeug:73.180.18.113 - - [25/Nov/2018 10:59:13] "GET /login HTTP/1.1" 200 -
+CRITICAL:root:{
+  "details": "Login <User id 8 - zoey>",
+  "timestamp": "2018-11-25 10:59:21.908700",
+  "user_id": 8,
+  "username": "zoey"
+}
+
+73.180.18.113 - - [25/Nov/2018 10:59:21] "POST /login HTTP/1.1" 302 -
+INFO:werkzeug:73.180.18.113 - - [25/Nov/2018 10:59:21] "POST /login HTTP/1.1" 302 -
+73.180.18.113 - - [25/Nov/2018 10:59:22] "GET /index HTTP/1.1" 200 -
+INFO:werkzeug:73.180.18.113 - - [25/Nov/2018 10:59:22] "GET /index HTTP/1.1" 200 -
+CRITICAL:root:{
+  "details": "Up Vote: <Post id 108 - Python Practice?>",
+  "timestamp": "2018-11-25 10:59:41.482030",
+  "user_id": 8,
+  "username": "zoey"
+}
+
+73.180.18.113 - - [25/Nov/2018 10:59:41] "GET /up_vote/108?next=%2Findex HTTP/1.1" 302 -
+INFO:werkzeug:73.180.18.113 - - [25/Nov/2018 10:59:41] "GET /up_vote/108?next=%2Findex HTTP/1.1" 302 -
+73.180.18.113 - - [25/Nov/2018 10:59:41] "GET /index HTTP/1.1" 200 -
+INFO:werkzeug:73.180.18.113 - - [25/Nov/2018 10:59:41] "GET /index HTTP/1.1" 200 -
+73.180.18.113 - - [25/Nov/2018 10:59:46] "GET /post/108 HTTP/1.1" 200 -
+INFO:werkzeug:73.180.18.113 - - [25/Nov/2018 10:59:46] "GET /post/108 HTTP/1.1" 200 -
+73.180.18.113 - - [25/Nov/2018 11:00:09] "POST /post/108 HTTP/1.1" 302 -
+INFO:werkzeug:73.180.18.113 - - [25/Nov/2018 11:00:09] "POST /post/108 HTTP/1.1" 302 -
+73.180.18.113 - - [25/Nov/2018 11:00:09] "GET /post/108 HTTP/1.1" 200 -
+INFO:werkzeug:73.180.18.113 - - [25/Nov/2018 11:00:09] "GET /post/108 HTTP/1.1" 200 -
+73.180.18.113 - - [25/Nov/2018 11:00:27] "GET /w/learnpython HTTP/1.1" 200 -
+INFO:werkzeug:73.180.18.113 - - [25/Nov/2018 11:00:27] "GET /w/learnpython HTTP/1.1" 200 -
+73.180.18.113 - - [25/Nov/2018 11:00:28] "GET /post/107 HTTP/1.1" 200 -
+INFO:werkzeug:73.180.18.113 - - [25/Nov/2018 11:00:28] "GET /post/107 HTTP/1.1" 200 -
+91.213.143.248 - - [25/Nov/2018 11:00:30] "GET /w/learnpython HTTP/1.1" 200 -
+INFO:werkzeug:91.213.143.248 - - [25/Nov/2018 11:00:30] "GET /w/learnpython HTTP/1.1" 200 -
+91.213.143.248 - - [25/Nov/2018 11:00:30] "GET /static/img/wolfit-logo.png HTTP/1.1" 200 -
+INFO:werkzeug:91.213.143.248 - - [25/Nov/2018 11:00:30] "GET /static/img/wolfit-logo.png HTTP/1.1" 200 -
+CRITICAL:root:{
+  "details": "Up Vote: <Post id 107 - make tic-tac-toe on python>",
+  "timestamp": "2018-11-25 11:00:32.182229",
+  "user_id": 8,
+  "username": "zoey"
+}
+
+73.180.18.113 - - [25/Nov/2018 11:00:32] "GET /up_vote/107?next=%2Fpost%2F107 HTTP/1.1" 302 -
+INFO:werkzeug:73.180.18.113 - - [25/Nov/2018 11:00:32] "GET /up_vote/107?next=%2Fpost%2F107 HTTP/1.1" 302 -
+73.180.18.113 - - [25/Nov/2018 11:00:32] "GET /post/107 HTTP/1.1" 200 -
+INFO:werkzeug:73.180.18.113 - - [25/Nov/2018 11:00:32] "GET /post/107 HTTP/1.1" 200 -
+91.213.143.248 - - [25/Nov/2018 11:00:33] "GET /post/107 HTTP/1.1" 200 -
+INFO:werkzeug:91.213.143.248 - - [25/Nov/2018 11:00:33] "GET /post/107 HTTP/1.1" 200 -
+91.213.143.248 - - [25/Nov/2018 11:00:33] "GET /static/img/wolfit-logo.png HTTP/1.1" 200 -
+INFO:werkzeug:91.213.143.248 - - [25/Nov/2018 11:00:33] "GET /static/img/wolfit-logo.png HTTP/1.1" 200 -
+73.180.18.113 - - [25/Nov/2018 11:05:21] "GET /index HTTP/1.1" 200 -
+INFO:werkzeug:73.180.18.113 - - [25/Nov/2018 11:05:21] "GET /index HTTP/1.1" 200 -
+91.213.143.248 - - [25/Nov/2018 11:05:23] "GET /post/107 HTTP/1.1" 200 -
+INFO:werkzeug:91.213.143.248 - - [25/Nov/2018 11:05:23] "GET /post/107 HTTP/1.1" 200 -
+91.213.143.248 - - [25/Nov/2018 11:05:23] "GET /static/img/wolfit-logo.png HTTP/1.1" 200 -
+INFO:werkzeug:91.213.143.248 - - [25/Nov/2018 11:05:23] "GET /static/img/wolfit-logo.png HTTP/1.1" 200 -
+91.213.143.248 - - [25/Nov/2018 11:05:25] "GET /index HTTP/1.1" 200 -
+INFO:werkzeug:91.213.143.248 - - [25/Nov/2018 11:05:25] "GET /index HTTP/1.1" 200 -
+91.213.143.248 - - [25/Nov/2018 11:05:25] "GET /static/img/wolfit-logo.png HTTP/1.1" 200 -
+INFO:werkzeug:91.213.143.248 - - [25/Nov/2018 11:05:25] "GET /static/img/wolfit-logo.png HTTP/1.1" 200 -
+CRITICAL:root:{
+  "details": "Up Vote: <Post id 106 - making dictionaries>",
+  "timestamp": "2018-11-25 11:05:32.685802",
+  "user_id": 8,
+  "username": "zoey"
+}
+
+73.180.18.113 - - [25/Nov/2018 11:05:32] "GET /up_vote/106?next=%2Findex HTTP/1.1" 302 -
+INFO:werkzeug:73.180.18.113 - - [25/Nov/2018 11:05:32] "GET /up_vote/106?next=%2Findex HTTP/1.1" 302 -
+73.180.18.113 - - [25/Nov/2018 11:05:32] "GET /index HTTP/1.1" 200 -
+INFO:werkzeug:73.180.18.113 - - [25/Nov/2018 11:05:32] "GET /index HTTP/1.1" 200 -
+73.180.18.113 - - [25/Nov/2018 11:05:45] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:73.180.18.113 - - [25/Nov/2018 11:05:45] "GET / HTTP/1.1" 200 -
+91.213.143.248 - - [25/Nov/2018 11:05:48] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:91.213.143.248 - - [25/Nov/2018 11:05:48] "GET / HTTP/1.1" 200 -
