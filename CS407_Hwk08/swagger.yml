@@ -1,0 +1,83 @@
+swagger: "2.0"
+info:
+  description: This is the swagger file that goes with our server code
+  version: "1.0.0"
+  title: stormy's REST API practice
+
+
+consumes:
+  - "application/json"
+produces:
+  - "application/json"
+
+
+# all defined resources we define will go on top of this... 
+# how cool is that?
+basePath: "/api"
+
+
+# Paths supported by the server application
+# the '/wolfit_posts' goes onto the '/api' to make the route!
+#   this makes the plural GET -- GET all...
+#
+# the 'get: operationId: wolfit_posts.read'
+#   defines the python import path/function, that will respond
+#   to an HTTP GET /api/whatever request.
+
+paths:
+  /wolfit_posts:
+    get:
+      operationId: "wolfit_posts.read"
+      tags:
+        - "Wolfit Posts"
+      summary: "The Wolfit posts data structure, supported by our server application"
+      description: "Read the list of example..practice..static wolfit posts"
+      responses:
+        200:
+          description: "Successful read wolfit posts list operation"
+          schema:
+            type: "array"
+            items:
+              properties:
+                post_id:
+                  type: "string"
+                user_id:
+                  type: "string"
+                author:
+                  type: "string"
+                subWolfit:
+                  type: "string"
+                subject:
+                  type: "string"
+                content:
+                  type: "string"
+                timestamp:
+                  type: "string"
+#______________________________________________________________________
+#
+# behind the scenes, connexion will be making the route (URI) for us
+# based on what we tell it up there -- like the Flask routes we've been
+# doing in the other API's we've been making
+#
+# 'operationId' -- tells it, using python language, how to find the 
+# function that will implement the 'read' operation... 
+#
+# 'array' like our python 'list' -- isn't it more like a python 'dict'?
+#
+#______________________________________________________________________
+#
+# if we want to add a new method (GET, POST, etc) to our API, 
+#	*THIS* 
+#		is where we would add the structure and all that
+#
+# look at data types (linked from moodle)
+#
+#	*ALSO* 
+#		don't forget to make another module -- like dogs.py -- with
+#		the schema all created and stuff
+#
+#______________________________________________________________________
+#
+# see https://realpython.com/flask-connexion-rest-api/
+#   for details about what each little part means/does and all that.
+
