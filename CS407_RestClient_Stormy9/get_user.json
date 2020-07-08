@@ -1,0 +1,7 @@
+# this is what i put in and this is what i get back:
+
+# curl https://reqres.in/users/api/users/id/2
+# {}
+
+# same if i leave off the /2
+# not sure what is not working... (:

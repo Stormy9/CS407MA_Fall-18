@@ -1,0 +1,8 @@
+*.pyc
+dev.settings
+test.settings
+test.env
+/.pytest_cache/
+.coverage
+/htmlcov/
+praw.ini
